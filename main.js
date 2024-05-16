@@ -1,14 +1,3 @@
-/* console.log("uno")
-console.log("dos")
-
- setTimeout(()=> { // Ejecuta la función según los milisegundos del segundo argumento
-    alert("hola mundo")
-}, 10000) 
-
-console.log("tres")
-console.log("cuatro")
-console.log("cinco") */
-
 const API = "https://api.escuelajs.co/api/v1/categories/"
 const tbody = document.querySelector("tbody")
 
@@ -41,26 +30,26 @@ function index(data, tbody) {
     })
 }
 
-getData()
-
-// Creamos una nueva categoría
+// Creamos una nueva categoría para enviarla
 
 const newCategory = {
     name: "lenguajes programación",
     image: "https://areaf5.es/wp-content/uploads/2023/06/Lenguajes-scaled.jpg"
 }
 
+// Le ponemos la función al botón enviar
+
 const btnNew = document.querySelector("#btn-enviar")
 btnNew.addEventListener("click", postData)
 
+
+// Eliminar:
 tbody.addEventListener("click", (e) => {
-    if (e.target.classList.contains("btn-danger")) {
-        let id = e.target.getAttribute("data-id")
-        console.log(id)
-        deleteData(id)
+    if (e.target.classList.contains("btn-danger")) { // si donde dimos click, tiene clase btn-danger
+        let id = e.target.getAttribute("data-id") // guardamos el id
+        deleteData(id) // lo pasamos como argumento
     }
 })
-
 
 async function postData() {
     const response = await fetch(API, { // Si no recibe el segundo parametro, toma GET
@@ -76,7 +65,7 @@ async function postData() {
 }
 
 async function deleteData(id) {
-    await fetch(`${API}${id}`, {
+    await fetch(`${API}${id}`, { // COmpleto el endpoint, queda así: "https://api.escuelajs.co/api/v1/categories/id"
         method: "DELETE",
         headers: {
             "Content-Type": "application/json"
@@ -84,3 +73,5 @@ async function deleteData(id) {
     })
     location.reload()
 }
+
+getData()
